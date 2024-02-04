@@ -129,7 +129,6 @@ public class WolvesBehaviorHandler implements MinorityFeature, Listener {
         }
     }
 
-    // Events
     @EventHandler
     public void onPlayerDamage(final EntityDamageByEntityEvent event) {
 
