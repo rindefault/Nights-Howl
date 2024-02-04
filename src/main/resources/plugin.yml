@@ -1,0 +1,5 @@
+name: "Nights-Howl"
+version: '${project.version}'
+main: me.rin.nightshowl.NightsHowl
+api-version: '1.20'
+description: The night is calling!
