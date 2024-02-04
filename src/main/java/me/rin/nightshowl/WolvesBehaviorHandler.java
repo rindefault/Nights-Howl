@@ -129,7 +129,6 @@ public class WolvesBehaviorHandler implements MinorityFeature, Listener {
         }
     }
 
-    // Events
     @EventHandler
     public void onPlayerDamage(final EntityDamageByEntityEvent event) {
 
@@ -238,7 +237,9 @@ public class WolvesBehaviorHandler implements MinorityFeature, Listener {
                             Particle.CLOUD, entity.getLocation(),
                             6, 0, 0, 0, 0.1
                     );
+
                     entity.remove();
+                    createdWolves.remove(entity);
 
                 });
             }
