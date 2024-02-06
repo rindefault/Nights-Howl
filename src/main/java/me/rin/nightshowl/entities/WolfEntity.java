@@ -59,12 +59,9 @@ public class WolfEntity {
                 // Also checking if wolf is dead and cancelling all the tasks
                 if (wolf.isDead()) {
                     tasks.forEach(BukkitTask::cancel);
-                    listToStore.remove(wolf);
-
                     tasks.clear();
                     return;
                 }
-
                 assignTarget();
             }
         }.runTaskTimer(instance, 0L, 60L);

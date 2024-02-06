@@ -242,6 +242,7 @@ public class WolvesBehaviorHandler implements MinorityFeature, Listener {
                 try {
                     createdWolves.forEach(entity -> {
 
+                        if (entity.isDead()) return;
                         if (!this.hasAggressiveWolfKey(entity)) return;
 
                         world.spawnParticle(

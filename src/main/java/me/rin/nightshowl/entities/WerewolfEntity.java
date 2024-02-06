@@ -17,6 +17,8 @@ import org.bukkit.inventory.meta.SkullMeta;
 import org.bukkit.persistence.PersistentDataType;
 import org.bukkit.profile.PlayerProfile;
 import org.bukkit.profile.PlayerTextures;
+import org.bukkit.scheduler.BukkitRunnable;
+import org.bukkit.scheduler.BukkitTask;
 
 import java.net.MalformedURLException;
 import java.net.URI;
@@ -82,7 +84,6 @@ public class WerewolfEntity {
 
         werewolf.getPersistentDataContainer().set(aggressiveWolvesKey, PersistentDataType.BOOLEAN, true);
         listToStore.add(werewolf);
-
     }
 
     // Player profile creation, implementation from mfnalex
