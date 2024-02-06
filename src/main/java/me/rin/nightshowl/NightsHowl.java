@@ -2,28 +2,33 @@ package me.rin.nightshowl;
 
 import lombok.Getter;
 import me.nologic.minority.MinorityExtension;
-import me.rin.nightshowl.util.CommandProvider;
-import me.rin.nightshowl.util.MessageManager;
+import me.rin.nightshowl.utils.CommandProvider;
+import me.rin.nightshowl.utils.MessageManager;
+import me.rin.nightshowl.utils.WolvesConfigManager;
 import org.bukkit.NamespacedKey;
 
 public final class NightsHowl extends MinorityExtension {
 
-    private CommandProvider   commandProvider;
+    private CommandProvider     commandProvider;
 
     @Getter
-    private NamespacedKey     aggressiveWolvesKey;
+    private NamespacedKey       aggressiveWolvesKey;
 
     @Getter
-    private static NightsHowl instance;
+    private static NightsHowl   instance;
 
     @Getter
-    private MessageManager    messageManager;
+    private MessageManager      messageManager;
+
+    @Getter
+    private WolvesConfigManager configManager;
 
     @Override
     public void onEnable() {
 
         instance = this;
-        messageManager = new MessageManager(this);
+        messageManager =      new MessageManager(this);
+        configManager =       new WolvesConfigManager(this);
         aggressiveWolvesKey = new NamespacedKey(this, "agressive-wolf");
 
         this.initializeProviders();

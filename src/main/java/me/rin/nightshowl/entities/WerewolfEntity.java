@@ -1,6 +1,8 @@
 package me.rin.nightshowl.entities;
 
+import lombok.Getter;
 import me.rin.nightshowl.NightsHowl;
+import me.rin.nightshowl.utils.WolvesConfigManager;
 import org.bukkit.Color;
 import org.bukkit.Location;
 import org.bukkit.Material;
@@ -14,8 +16,6 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.LeatherArmorMeta;
 import org.bukkit.inventory.meta.SkullMeta;
 import org.bukkit.persistence.PersistentDataType;
-import org.bukkit.potion.PotionEffect;
-import org.bukkit.potion.PotionEffectType;
 import org.bukkit.profile.PlayerProfile;
 import org.bukkit.profile.PlayerTextures;
 
@@ -23,32 +23,25 @@ import java.net.MalformedURLException;
 import java.net.URI;
 import java.net.URL;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.UUID;
 
 public class WerewolfEntity {
 
-    private final NightsHowl      instance;
-    private final EntityEquipment equipment;
-    private final NamespacedKey   aggressiveWolvesKey;
+    @Getter
+    private final Zombie entity;
+
+    private final NightsHowl instance;
 
     public WerewolfEntity(Location location, ArrayList<Entity> listToStore) {
 
         // Mob spawn
-        Zombie werewolf = (Zombie) location.getWorld().spawnEntity(location, EntityType.ZOMBIE);
+        this.entity = (Zombie) location.getWorld().spawnEntity(location, EntityType.ZOMBIE);
 
-        instance =            NightsHowl.getInstance();
-        equipment =           werewolf.getEquipment();
-        aggressiveWolvesKey = instance.getAggressiveWolvesKey();
+        instance = NightsHowl.getInstance();
 
-        // Effects
-        ArrayList<PotionEffect> potionEffects = new ArrayList<>(Arrays.asList(
-                new PotionEffect(
-                    PotionEffectType.SPEED,
-                    -1, 2,
-                    false, false
-                )
-        ));
+        WolvesConfigManager configManager =       instance.getConfigManager();
+        EntityEquipment     equipment =           this.entity.getEquipment();
+        NamespacedKey       aggressiveWolvesKey = instance.getAggressiveWolvesKey();
 
         // Armor
         PlayerProfile profile = this.getProfile();
@@ -78,15 +71,21 @@ public class WerewolfEntity {
         equipment.setBoots(boots);
 
         // Attributes
-        werewolf.setSilent(true);
-        werewolf.setCanPickupItems(false);
-        werewolf.addPotionEffects(potionEffects);
+        int maxHealth = configManager.getWerewolfHealthAttribute();
+        double damage = configManager.getWerewolfDamageAttribute();
+        double speed  = configManager.getWerewolfSpeedAttribute();
 
-        werewolf.getAttribute(Attribute.GENERIC_MAX_HEALTH).setBaseValue(90);
-        werewolf.setHealth(90);
+        this.entity.setSilent(true);
+        this.entity.setCanPickupItems(false);
 
-        werewolf.getPersistentDataContainer().set(aggressiveWolvesKey, PersistentDataType.BOOLEAN, true);
-        listToStore.add(werewolf);
+        this.entity.getAttribute(Attribute.GENERIC_MAX_HEALTH).setBaseValue(maxHealth);
+        this.entity.setHealth(maxHealth);
+
+        this.entity.getAttribute(Attribute.GENERIC_ATTACK_DAMAGE).setBaseValue(damage);
+        this.entity.getAttribute(Attribute.GENERIC_MOVEMENT_SPEED).setBaseValue(speed);
+
+        this.entity.getPersistentDataContainer().set(aggressiveWolvesKey, PersistentDataType.BOOLEAN, true);
+        listToStore.add(this.entity);
 
     }
 

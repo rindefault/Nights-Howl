@@ -111,6 +111,12 @@
         </dependency>
 
         <dependency>
+            <groupId>org.json</groupId>
+            <artifactId>json</artifactId>
+            <version>20231013</version>
+        </dependency>
+
+        <dependency>
             <groupId>com.github.oNLog1c</groupId>
             <artifactId>minority</artifactId>
             <version>2.7</version>
