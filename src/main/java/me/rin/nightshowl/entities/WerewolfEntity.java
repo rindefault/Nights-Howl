@@ -1,6 +1,5 @@
 package me.rin.nightshowl.entities;
 
-import lombok.Getter;
 import me.rin.nightshowl.NightsHowl;
 import me.rin.nightshowl.utils.WolvesConfigManager;
 import org.bukkit.Color;
@@ -27,20 +26,17 @@ import java.util.UUID;
 
 public class WerewolfEntity {
 
-    @Getter
-    private final Zombie entity;
-
     private final NightsHowl instance;
 
     public WerewolfEntity(Location location, ArrayList<Entity> listToStore) {
 
         // Mob spawn
-        this.entity = (Zombie) location.getWorld().spawnEntity(location, EntityType.ZOMBIE);
+        Zombie werewolf = (Zombie) location.getWorld().spawnEntity(location, EntityType.ZOMBIE);
 
         instance = NightsHowl.getInstance();
 
         WolvesConfigManager configManager =       instance.getConfigManager();
-        EntityEquipment     equipment =           this.entity.getEquipment();
+        EntityEquipment     equipment =           werewolf.getEquipment();
         NamespacedKey       aggressiveWolvesKey = instance.getAggressiveWolvesKey();
 
         // Armor
@@ -75,17 +71,17 @@ public class WerewolfEntity {
         double damage = configManager.getWerewolfDamageAttribute();
         double speed  = configManager.getWerewolfSpeedAttribute();
 
-        this.entity.setSilent(true);
-        this.entity.setCanPickupItems(false);
+        werewolf.setSilent(true);
+        werewolf.setCanPickupItems(false);
 
-        this.entity.getAttribute(Attribute.GENERIC_MAX_HEALTH).setBaseValue(maxHealth);
-        this.entity.setHealth(maxHealth);
+        werewolf.getAttribute(Attribute.GENERIC_MAX_HEALTH).setBaseValue(maxHealth);
+        werewolf.setHealth(maxHealth);
 
-        this.entity.getAttribute(Attribute.GENERIC_ATTACK_DAMAGE).setBaseValue(damage);
-        this.entity.getAttribute(Attribute.GENERIC_MOVEMENT_SPEED).setBaseValue(speed);
+        werewolf.getAttribute(Attribute.GENERIC_ATTACK_DAMAGE).setBaseValue(damage);
+        werewolf.getAttribute(Attribute.GENERIC_MOVEMENT_SPEED).setBaseValue(speed);
 
-        this.entity.getPersistentDataContainer().set(aggressiveWolvesKey, PersistentDataType.BOOLEAN, true);
-        listToStore.add(this.entity);
+        werewolf.getPersistentDataContainer().set(aggressiveWolvesKey, PersistentDataType.BOOLEAN, true);
+        listToStore.add(werewolf);
 
     }
 
