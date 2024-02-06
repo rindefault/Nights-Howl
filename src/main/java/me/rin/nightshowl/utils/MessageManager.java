@@ -6,7 +6,6 @@ import me.nologic.minority.MinorityFeature;
 import me.nologic.minority.annotations.Configurable;
 import me.nologic.minority.annotations.ConfigurationKey;
 import me.nologic.minority.annotations.Type;
-import org.bukkit.Bukkit;
 
 import java.util.ArrayList;
 
